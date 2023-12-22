@@ -121,6 +121,7 @@ Function Get-Zones {
 
 Function Get-Patterns { 
 	$jfCmd = '{"cmd": "toCtlrGet", "get": [["patternFileList"]]}'
+ 	$array = @()
 	$commandOutput = Run-Command -jfURL $URL -jfCmd $jfCmd
 	Write-Host $commandOutput
 	$patterns = $commandOutput.patternFileList
@@ -133,7 +134,10 @@ Function Get-Patterns {
 	foreach($pattern in $patterns){
 		
 		Write-Host "$($pattern.folders)/$($pattern.name)"
-	} 
+  		$array = $array + "$($pattern.folders)/$($pattern.name)"
+	}
+ 
+ 	return $array
 } 
 
 
@@ -166,9 +170,9 @@ Function Set-PatternOnAllZones {
 		$jfCmd = '{"cmd":"toCtlrSet","runPattern":{"file":"'+$patternName+'","data":"","id":"","state":1,"zoneName":["'+$zone+'"]}}'
 		$commandOutput = Run-Command -jfURL $URL -jfCmd $jfCmd
 	}
-	#$jfCmd = '{"cmd":"toCtlrSet","runPattern":{"file":"'+$patternName+'","data":"","id":"","state":1,"zoneName":["'+$zoneName+'"]}}'
-	#Write-Host $jfCmd
-	#$commandOutput = Run-Command -jfURL $URL -jfCmd $jfCmd
+	$jfCmd = '{"cmd":"toCtlrSet","runPattern":{"file":"'+$patternName+'","data":"","id":"","state":1,"zoneName":["'+$zoneName+'"]}}'
+	Write-Host $jfCmd
+	$commandOutput = Run-Command -jfURL $URL -jfCmd $jfCmd
 	
 } 
 
