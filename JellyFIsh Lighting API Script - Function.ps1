@@ -138,14 +138,14 @@ Function Get-Patterns {
 
 
 Function Set-PatternOnZone {
-Param(
-
-[parameter(Mandatory=$true)]
+	Param(
+	
+		[parameter(Mandatory=$true)]
 		[string]$zoneName,
 		[parameter(Mandatory=$true)]
 		[string]$patternName
-
-)
+	
+	)
 	$jfCmd = '{"cmd":"toCtlrSet","runPattern":{"file":"'+$patternName+'","data":"","id":"","state":1,"zoneName":["'+$zoneName+'"]}}'
 	Write-Host $jfCmd
 	$commandOutput = Run-Command -jfURL $URL -jfCmd $jfCmd
@@ -154,12 +154,12 @@ Param(
 
 
 Function Set-PatternOnAllZones {
-Param(
-
+	Param(
+	
 		[parameter(Mandatory=$true)]
 		[string]$patternName
-
-)
+	
+	)
 
 	$zones = Get-Zones
 	foreach($zone in $zones){
@@ -173,14 +173,14 @@ Param(
 } 
 
 Function Set-StateOnZone {
-Param(
-
-[parameter(Mandatory=$true)]
+	Param(
+	
+		[parameter(Mandatory=$true)]
 		[string]$zoneName,
 		[parameter(Mandatory=$true)]
 		[int]$state
-
-)
+	
+	)
 	$jfCmd = '{"cmd":"toCtlrSet","runPattern":{"file":"Warm Cool/White","data":"","id":"","state":'+$state+',"zoneName":["'+$zoneName+'"]}}'
 	Write-Host $jfCmd
 	$commandOutput = Run-Command -jfURL $URL -jfCmd $jfCmd
